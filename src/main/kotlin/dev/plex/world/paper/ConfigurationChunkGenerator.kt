@@ -8,14 +8,16 @@ import org.bukkit.generator.BlockPopulator
  * @since 8:44 PM [21-08-2023]
  *
  */
-class ConfigurationChunkGenerator(worldName: String, vararg populator: BlockPopulator) : BlockMapChunkGenerator(createBlockMap(worldName), *populator)
+class ConfigurationChunkGenerator(worldName: String, vararg populator: BlockPopulator) :
+    BlockMapChunkGenerator(createBlockMap(worldName), *populator)
 {
     companion object
     {
         private fun createBlockMap(worldName: String): LinkedHashMap<Material, Int>
         {
             val blockMap = linkedMapOf<Material, Int>()
-            for (key: String in plugin.config.getConfigurationSection("worlds.${worldName}.parameters")!!.getKeys(false))
+            for (key: String in plugin.config.getConfigurationSection("worlds.${worldName}.parameters")!!
+                .getKeys(false))
             {
                 val material = Material.getMaterial(key.uppercase()) ?: continue
                 val count = plugin.config.getInt("worlds.${worldName}.parameters.${key}")

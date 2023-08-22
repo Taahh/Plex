@@ -9,26 +9,35 @@ version = "1.4-BETA"
 repositories {
     mavenCentral()
     maven {
-            url = uri("https://repo.papermc.io/repository/maven-public/")
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
+    maven {
+        url = uri("https://jitpack.io")
+        content {
+            includeGroup("com.github.MilkBowl")
         }
+    }
 }
 
 dependencies {
     compileOnly("dev.folia:folia-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude(group = "org.bukkit", module = "bukkit")
+    }
 }
 
 tasks {
 
-  compileJava {
-    options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
+    compileJava {
+        options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
 
-    // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
-    // See https://openjdk.java.net/jeps/247 for more information.
-    options.release.set(17)
-  }
-  javadoc {
-    options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
-  }
+        // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
+        // See https://openjdk.java.net/jeps/247 for more information.
+        options.release.set(17)
+    }
+    javadoc {
+        options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
+    }
 
 }
 

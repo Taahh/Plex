@@ -3,7 +3,6 @@ package dev.plex.service
 import dev.plex.Plex
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import org.bukkit.Bukkit
-import org.jetbrains.annotations.Async.Schedule
 import java.util.concurrent.TimeUnit
 
 /**
@@ -43,19 +42,32 @@ class ServiceManager
         {
             if (service.repeating)
             {
-                task = Bukkit.getAsyncScheduler().runAtFixedRate(Plex.get(), service::run, service.delayInSeconds, service.periodInSeconds, TimeUnit.SECONDS)
+                task = Bukkit.getAsyncScheduler().runAtFixedRate(
+                    Plex.get(),
+                    service::run,
+                    service.delayInSeconds,
+                    service.periodInSeconds,
+                    TimeUnit.SECONDS
+                )
             } else
             {
-                task = Bukkit.getAsyncScheduler().runDelayed(Plex.get(), service::run, service.delayInSeconds, TimeUnit.SECONDS)
+                task = Bukkit.getAsyncScheduler()
+                    .runDelayed(Plex.get(), service::run, service.delayInSeconds, TimeUnit.SECONDS)
             }
         } else
         {
             if (service.repeating)
             {
-                task = Bukkit.getGlobalRegionScheduler().runAtFixedRate(Plex.get(), service::run, service.delayInSeconds * 20L, service.periodInSeconds * 20L)
+                task = Bukkit.getGlobalRegionScheduler().runAtFixedRate(
+                    Plex.get(),
+                    service::run,
+                    service.delayInSeconds * 20L,
+                    service.periodInSeconds * 20L
+                )
             } else
             {
-                task = Bukkit.getGlobalRegionScheduler().runDelayed(Plex.get(), service::run, service.delayInSeconds * 20L)
+                task =
+                    Bukkit.getGlobalRegionScheduler().runDelayed(Plex.get(), service::run, service.delayInSeconds * 20L)
             }
         }
 

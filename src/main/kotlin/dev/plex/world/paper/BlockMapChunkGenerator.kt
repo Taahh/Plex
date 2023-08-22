@@ -8,16 +8,22 @@ import org.bukkit.generator.BlockPopulator
  * @since 8:27 PM [21-08-2023]
  *
  */
-open class BlockMapChunkGenerator(private val blockMap: LinkedHashMap<Material, Int>, vararg populator: BlockPopulator) : FlatChunkGenerator(0, *populator)
+open class BlockMapChunkGenerator(
+    private val blockMap: LinkedHashMap<Material, Int>,
+    vararg populator: BlockPopulator
+) : FlatChunkGenerator(0, *populator)
 {
     override fun createLoopChunkData(x: Int, y: Int, z: Int, chunk: ChunkData)
     {
-        var height = -1;
-        for (i: Int in blockMap.values) {
+        var height = -1
+        for (i: Int in blockMap.values)
+        {
             height += i
         }
-        for (entry: Map.Entry<Material, Int> in blockMap.entries) {
-            for (i in 0..<entry.value) {
+        for (entry: Map.Entry<Material, Int> in blockMap.entries)
+        {
+            for (i in 0..<entry.value)
+            {
                 chunk.setBlock(x, height, z, entry.key)
                 height--
             }

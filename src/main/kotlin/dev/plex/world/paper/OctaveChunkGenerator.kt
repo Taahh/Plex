@@ -10,7 +10,8 @@ import java.util.*
  * @since 8:51 PM [21-08-2023]
  *
  */
-abstract class OctaveChunkGenerator(height: Int, private val options: OctaveOptions, vararg populator: BlockPopulator) : CustomChunkGenerator(height, *populator)
+abstract class OctaveChunkGenerator(height: Int, private val options: OctaveOptions, vararg populator: BlockPopulator) :
+    CustomChunkGenerator(height, *populator)
 {
     override fun generateNoise(worldInfo: WorldInfo, random: Random, chunkX: Int, chunkZ: Int, chunkData: ChunkData)
     {
@@ -19,7 +20,13 @@ abstract class OctaveChunkGenerator(height: Int, private val options: OctaveOpti
         {
             for (zz in 0..<16)
             {
-                height = generator.noise(options.x.toDouble(), options.y.toDouble(), options.frequency, options.amplitude, options.normalized).toInt()
+                height = generator.noise(
+                    options.x.toDouble(),
+                    options.y.toDouble(),
+                    options.frequency,
+                    options.amplitude,
+                    options.normalized
+                ).toInt()
                 createLoopChunkData(xx, height, zz, chunkData)
             }
         }

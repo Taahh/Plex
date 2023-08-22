@@ -6,5 +6,3 @@ package dev.plex.world.paper
  *
  */
 open class NoiseOptions(val x: Int, val y: Int, val frequency: Double, val amplitude: Double, val normalized: Boolean)
-{
-}

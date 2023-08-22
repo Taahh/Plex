@@ -18,7 +18,11 @@ import java.util.function.Consumer
  * @since 10:07 PM [21-08-2023]
  *
  */
-class CustomWorld(name: String, private val chunks: CustomChunkGenerator, private val postGenerate: Consumer<World>? = null) : WorldCreator(name)
+class CustomWorld(
+    name: String,
+    private val chunks: CustomChunkGenerator,
+    private val postGenerate: Consumer<World>? = null
+) : WorldCreator(name)
 {
     companion object
     {
@@ -37,7 +41,11 @@ class CustomWorld(name: String, private val chunks: CustomChunkGenerator, privat
                     val state = block.state
                     if (state is Sign)
                     {
-                        state.getSide(Side.FRONT).line(1, Component.text(plugin.config.getString("worlds.${name}.name") ?: "world not found").color(NamedTextColor.GREEN))
+                        state.getSide(Side.FRONT).line(
+                            1,
+                            Component.text(plugin.config.getString("worlds.${name}.name") ?: "world not found")
+                                .color(NamedTextColor.GREEN)
+                        )
                         state.getSide(Side.FRONT).line(2, Component.text("- 0, 0 -"))
                         state.update()
                     }
@@ -60,7 +68,7 @@ class CustomWorld(name: String, private val chunks: CustomChunkGenerator, privat
         return world
     }
 
-    override fun generator(): ChunkGenerator?
+    override fun generator(): ChunkGenerator
     {
         return this.chunks
     }

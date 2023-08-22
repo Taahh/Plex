@@ -1,6 +1,7 @@
 package dev.plex
+
+import dev.plex.config.Config
 import dev.plex.service.ServiceManager
-import dev.plex.util.isFolia
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -10,24 +11,31 @@ import org.bukkit.plugin.java.JavaPlugin
  */
 class Plex : JavaPlugin()
 {
-    companion object {
-        private var plugin: Plex? = null
-        fun get(): Plex = plugin!!
-    }
-
     val serviceManager: ServiceManager = ServiceManager()
+
+    lateinit var config: Config
     override fun onLoad()
     {
         plugin = this
+        config = Config(this, "config.yml")
     }
 
     override fun onEnable()
     {
+        config.load()
+
         serviceManager.startAll()
     }
 
     override fun onDisable()
     {
         serviceManager.stopAll()
+    }
+
+    // Moved to the bottom to clean up a bit
+    companion object
+    {
+        private lateinit var plugin: Plex
+        fun get(): Plex = plugin
     }
 }

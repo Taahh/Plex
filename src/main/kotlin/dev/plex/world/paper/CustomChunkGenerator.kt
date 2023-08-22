@@ -12,10 +12,12 @@ import org.bukkit.generator.ChunkGenerator
  */
 abstract class CustomChunkGenerator(protected var height: Int, vararg populator: BlockPopulator) : ChunkGenerator()
 {
-    companion object {
+    companion object
+    {
         @JvmStatic
         protected val plugin: Plex = Plex.get()
     }
+
     private val populators: List<BlockPopulator> = populator.asList()
     abstract fun createLoopChunkData(x: Int, y: Int, z: Int, chunk: ChunkData)
 
